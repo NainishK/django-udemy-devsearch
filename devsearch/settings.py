@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     "corsheaders",
+    'storages'
 ]
 
 REST_FRAMEWORK = {
@@ -124,27 +125,27 @@ WSGI_APPLICATION = 'devsearch.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'devsearch',
-#         'USER': 'postgres',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'nainishk',
+        'PASSWORD': 'UserNainish22',
+        'HOST': 'database-1.cdv0vidxapvo.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -206,6 +207,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_ACCESS_KEY_ID = 'AKIAVGCQXH5NWS2BMRNM'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'devsearch-nainish-bucket'
+
+AWS_S3_REGION_NAME = 'ap-south-1'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = "virtual"
 
 if os.getcwd() == '/app':
     DEBUG = False
